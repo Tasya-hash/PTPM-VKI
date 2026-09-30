@@ -1,0 +1,89 @@
+logs/
+*.log
+
+2026-09-30 09:30:46 | [INFO   ] | Логгер успешно сконфигурирован
+2026-09-30 09:30:46 | [INFO   ] | Приложение запущено
+2026-09-30 09:30:46 | [INFO   ] | Старт обработки запроса
+2026-09-30 09:30:57 | [INFO   ] | Запрос A='3', B='4', C='5'
+2026-09-30 09:30:57 | [DEBUG  ] | Вид треугольника: разносторонний
+2026-09-30 09:30:57 | [ERROR  ] | Ошибка при расчете координат:
+Traceback (most recent call last):
+  File "C:\Users\maksimovskayate\PycharmProjects\PTPM-VKI\main.py", line 113, in process_request
+    vertices = compute_vertices(a, b, c)
+  File "C:\Users\maksimovskayate\PycharmProjects\PTPM-VKI\main.py", line 83, in compute_vertices
+    return [(clamp(ax), clamp(ay))
+            ~~~~~~~~~~~~~~~~~~~~~~
+            (clamp(bx), clamp(by))
+            ^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'tuple' object is not callable
+2026-09-30 09:30:57 | [CRITICAL] | Критическая ошибка обработки запроса
+Traceback (most recent call last):
+  File "C:\Users\maksimovskayate\PycharmProjects\PTPM-VKI\main.py", line 113, in process_request
+    vertices = compute_vertices(a, b, c)
+  File "C:\Users\maksimovskayate\PycharmProjects\PTPM-VKI\main.py", line 83, in compute_vertices
+    return [(clamp(ax), clamp(ay))
+            ~~~~~~~~~~~~~~~~~~~~~~
+            (clamp(bx), clamp(by))
+            ^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'tuple' object is not callable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\maksimovskayate\PycharmProjects\PTPM-VKI\main.py", line 130, in Main
+    kind, vertices = process_request(raw_a, raw_b, raw_c)
+                     ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\maksimovskayate\PycharmProjects\PTPM-VKI\main.py", line 116, in process_request
+    return kind, vertices
+                 ^^^^^^^^
+UnboundLocalError: cannot access local variable 'vertices' where it is not associated with a value
+2026-09-30 09:30:57 | [INFO   ] | Завершение обработки
+2026-09-30 09:35:54 | [INFO   ] | Логгер успешно сконфигурирован
+2026-09-30 09:35:54 | [INFO   ] | Приложение запущено
+2026-09-30 09:35:54 | [INFO   ] | Старт обработки запроса
+2026-09-30 09:36:01 | [INFO   ] | Запрос A='2', B='3', C='4'
+2026-09-30 09:36:01 | [DEBUG  ] | Вид треугольника: разносторонний
+2026-09-30 09:36:01 | [ERROR  ] | Ошибка при расчете координат:
+Traceback (most recent call last):
+  File "C:\Users\maksimovskayate\PycharmProjects\PTPM-VKI\main.py", line 117, in process_request
+    vertices = compute_vertices(a, b, c)
+  File "C:\Users\maksimovskayate\PycharmProjects\PTPM-VKI\main.py", line 86, in compute_vertices
+    return ([clamp(ax), clamp(ay)]
+            ~~~~~~~~~~~~~~~~~~~~~~
+            [clamp(bx), clamp(by)]
+            ^^^^^^^^^^^^^^^^^^^^^^
+TypeError: list indices must be integers or slices, not tuple
+2026-09-30 09:36:01 | [CRITICAL] | Критическая ошибка обработки запроса
+Traceback (most recent call last):
+  File "C:\Users\maksimovskayate\PycharmProjects\PTPM-VKI\main.py", line 117, in process_request
+    vertices = compute_vertices(a, b, c)
+  File "C:\Users\maksimovskayate\PycharmProjects\PTPM-VKI\main.py", line 86, in compute_vertices
+    return ([clamp(ax), clamp(ay)]
+            ~~~~~~~~~~~~~~~~~~~~~~
+            [clamp(bx), clamp(by)]
+            ^^^^^^^^^^^^^^^^^^^^^^
+TypeError: list indices must be integers or slices, not tuple
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\maksimovskayate\PycharmProjects\PTPM-VKI\main.py", line 134, in Main
+    kind, vertices = process_request(raw_a, raw_b, raw_c)
+                     ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\maksimovskayate\PycharmProjects\PTPM-VKI\main.py", line 120, in process_request
+    return kind, vertices
+                 ^^^^^^^^
+UnboundLocalError: cannot access local variable 'vertices' where it is not associated with a value
+2026-09-30 09:36:01 | [INFO   ] | Завершение обработки
+2026-09-30 09:36:38 | [INFO   ] | Логгер успешно сконфигурирован
+2026-09-30 09:36:38 | [INFO   ] | Приложение запущено
+2026-09-30 09:36:38 | [INFO   ] | Старт обработки запроса
+2026-09-30 09:36:42 | [INFO   ] | Запрос A='3', B='4', C='5'
+2026-09-30 09:36:42 | [DEBUG  ] | Вид треугольника: разносторонний
+2026-09-30 09:36:42 | [CRITICAL] | Критическая ошибка обработки запроса
+Traceback (most recent call last):
+  File "C:\Users\maksimovskayate\PycharmProjects\PTPM-VKI\main.py", line 134, in Main
+    kind, vertices = process_request(raw_a, raw_b, raw_c)
+    ^^^^^^^^^^^^^^
+TypeError: cannot unpack non-iterable NoneType object
+2026-09-30 09:36:42 | [INFO   ] | Завершение обработки

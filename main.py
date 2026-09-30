@@ -16,7 +16,8 @@ logging.basicConfig(
     datefmt=date_format,
     handlers=[
         logging.StreamHandler(sys.stdout),
-        logging.FileHandler(os.path.join(LOG_DIR, "logs/file_txt.log"), encoding="utf-8")
+        #logging.FileHandler(os.path.join(LOG_DIR, "logs/file_txt.log"), encoding="utf-8")
+        logging.FileHandler("logs/file_txt")
     ]
 )
 
@@ -79,6 +80,62 @@ def compute_vertices(a: float, b: float, c: float):
     def clamp(v):
         return int(round(max(0, min(FIELD_SIZE, v))))
 
-    return [(clamp(ax), clamp(ay))
-            (clamp(bx), clamp(by))
-            (clamp(cx), clamp(cy))]
+    return ([clamp(ax), clamp(ay)],
+            [clamp(bx), clamp(by)],
+            [clamp(cx), clamp(cy)])
+
+def process_request(raw_a: str, raw_b: str, raw_c: str):
+    logging.info(f"Запрос A='{raw_a}', B='{raw_b}', C='{raw_c}'")
+    #тут нечисловые данные
+    try:
+        a, b, c = parse_sides(raw_a, raw_b, raw_c)
+    except ValueError as ex:
+        if str(ex) == "non-numeric input":
+            logging.error("Нечисловые данные")
+            return "", [(-2, -2), (-2, -2), (-2, -2)]
+        else:
+            logging.error("Ошибочные числовые данные (не положительные)")
+            return "не треугольник", [(-1, -1), (-1, -1), (-1, -1)]
+    #классификация
+    try:
+        kind = classify_triangle(a, b, c)
+        logging.debug(f"Вид треугольника: {kind}")
+    except Exception:
+        logging.exception("Ошибка при классификации треугольника:")
+        return "не треугольник", [(-1, -1), (-1, -1), (-1, -1)]
+
+    # если не треугольник - вернуть (-1, -1)
+    if kind == "не треугольник":
+        logging.warning("Стороны не образуются")
+        return kind, [(-1, -1), (-1, -1), (-1, -1)]
+
+    #координаты
+    try:
+        vertices = compute_vertices(a, b, c)
+    except Exception:
+        logging.exception("Ошибка при расчете координат:")
+        return kind, vertices
+
+
+def Main():
+    logging.info("Старт обработки запроса")
+    try:
+        raw_a = input("Введите сторону А: ").strip()
+        raw_b = input("Введите сторону B: ").strip()
+        raw_c = input("Введите сторону C: ").strip()
+    except Exception:
+        logging.exception("Ошибка чтения входных данных")
+        return
+
+    try:
+        kind, vertices = process_request(raw_a, raw_b, raw_c)
+        print(f"\nВид треугольника: {kind}")
+        print(f"\nКоординаты вершин {vertices}")
+    except Exception:
+        logging.critical("Критическая ошибка обработки запроса", exc_info=True)
+        print("Критическая ошибка")
+    finally:
+        logging.info("Завершение обработки")
+
+if __name__ == "__main__":
+    Main()
