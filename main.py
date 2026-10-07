@@ -17,7 +17,7 @@ logging.basicConfig(
     handlers=[
         logging.StreamHandler(sys.stdout),
         #logging.FileHandler(os.path.join(LOG_DIR, "logs/file_txt.log"), encoding="utf-8")
-        logging.FileHandler("logs/file_txt")
+        logging.FileHandler("logs/file_txt.log", encoding="utf-8")
     ]
 )
 
@@ -114,7 +114,8 @@ def process_request(raw_a: str, raw_b: str, raw_c: str):
         vertices = compute_vertices(a, b, c)
     except Exception:
         logging.exception("Ошибка при расчете координат:")
-        return kind, vertices
+        return kind
+    return kind, vertices
 
 
 def Main():
