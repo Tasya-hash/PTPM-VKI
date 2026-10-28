@@ -1,0 +1,245 @@
+2026-10-28 09:27:38 | [INFO   ] | Логгер успешно сконфигурирован
+2026-10-28 09:27:38 | [INFO   ] | Приложение запущено
+2026-10-28 09:27:38 | [INFO   ] | ======================================================================
+2026-10-28 09:27:38 | [INFO   ] | ЗАПУСК ТЕСТОВ
+2026-10-28 09:27:38 | [INFO   ] | ======================================================================
+2026-10-28 09:27:38 | [INFO   ] | Логгер успешно сконфигурирован
+2026-10-28 09:27:38 | [INFO   ] | Приложение запущено
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_delivery.TestBaseCost.test_mid_distance_base_cost
+2026-10-28 09:27:38 | [INFO   ] | OK : test_delivery.TestBaseCost.test_mid_distance_base_cost
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_delivery.TestBaseCost.test_minimal_distance_base_cost
+2026-10-28 09:27:38 | [INFO   ] | OK : test_delivery.TestBaseCost.test_minimal_distance_base_cost
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_delivery.TestCostRounding.test_cost_is_integer
+2026-10-28 09:27:38 | [INFO   ] | OK : test_delivery.TestCostRounding.test_cost_is_integer
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_delivery.TestCostRounding.test_cost_rounded_up_not_truncated
+2026-10-28 09:27:38 | [INFO   ] | OK : test_delivery.TestCostRounding.test_cost_rounded_up_not_truncated
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_delivery.TestDeliveryDate.test_date_format
+2026-10-28 09:27:38 | [INFO   ] | OK : test_delivery.TestDeliveryDate.test_date_format
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_delivery.TestDeliveryDate.test_distance_1000_is_two_days
+2026-10-28 09:27:38 | [INFO   ] | OK : test_delivery.TestDeliveryDate.test_distance_1000_is_two_days
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_delivery.TestDeliveryDate.test_distance_500_is_one_day
+2026-10-28 09:27:38 | [INFO   ] | OK : test_delivery.TestDeliveryDate.test_distance_500_is_one_day
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_delivery.TestDeliveryDate.test_short_distance_still_one_day_minimum
+2026-10-28 09:27:38 | [INFO   ] | OK : test_delivery.TestDeliveryDate.test_short_distance_still_one_day_minimum
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_delivery.TestExpressDelivery.test_express_costs_more_than_regular
+2026-10-28 09:27:38 | [ERROR  ] | FAIL : test_delivery.TestExpressDelivery.test_express_costs_more_than_regular
+2026-10-28 09:27:38 | [ERROR  ] | Traceback (most recent call last):
+  File "C:\Users\maksimovskayate\PycharmProjects\PTPM-VKI\tests\test_delivery.py", line 69, in test_express_costs_more_than_regular
+    self.assertGreater(express_cost, regular_cost)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 350 not greater than 700
+
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_delivery.TestExpressDelivery.test_express_delivery_is_faster
+2026-10-28 09:27:38 | [INFO   ] | OK : test_delivery.TestExpressDelivery.test_express_delivery_is_faster
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_delivery.TestExpressDelivery.test_express_never_delivers_same_day
+2026-10-28 09:27:38 | [ERROR  ] | FAIL : test_delivery.TestExpressDelivery.test_express_never_delivers_same_day
+2026-10-28 09:27:38 | [ERROR  ] | Traceback (most recent call last):
+  File "C:\Users\maksimovskayate\PycharmProjects\PTPM-VKI\tests\test_delivery.py", line 76, in test_express_never_delivers_same_day
+    self.assertNotEqual(express_date, "2026-09-03")
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: '2026-09-03' == '2026-09-03'
+
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_delivery.TestInputValidation.test_distance_above_maximum_returns_error
+2026-10-28 09:27:38 | [INFO   ] | OK : test_delivery.TestInputValidation.test_distance_above_maximum_returns_error
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_delivery.TestInputValidation.test_distance_zero_returns_error
+2026-10-28 09:27:38 | [INFO   ] | OK : test_delivery.TestInputValidation.test_distance_zero_returns_error
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_delivery.TestInputValidation.test_invalid_package_type_returns_error
+2026-10-28 09:27:38 | [INFO   ] | OK : test_delivery.TestInputValidation.test_invalid_package_type_returns_error
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_delivery.TestInputValidation.test_weight_above_maximum_returns_error
+2026-10-28 09:27:38 | [INFO   ] | OK : test_delivery.TestInputValidation.test_weight_above_maximum_returns_error
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_delivery.TestInputValidation.test_weight_at_maximum_boundary_is_valid
+2026-10-28 09:27:38 | [INFO   ] | OK : test_delivery.TestInputValidation.test_weight_at_maximum_boundary_is_valid
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_delivery.TestInputValidation.test_weight_at_minimum_boundary_is_valid
+2026-10-28 09:27:38 | [INFO   ] | OK : test_delivery.TestInputValidation.test_weight_at_minimum_boundary_is_valid
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_delivery.TestInputValidation.test_weight_below_minimum_returns_error
+2026-10-28 09:27:38 | [INFO   ] | OK : test_delivery.TestInputValidation.test_weight_below_minimum_returns_error
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_delivery.TestPackageTypeSurcharge.test_dangerous_adds_1000
+2026-10-28 09:27:38 | [INFO   ] | OK : test_delivery.TestPackageTypeSurcharge.test_dangerous_adds_1000
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_delivery.TestPackageTypeSurcharge.test_fragile_adds_300
+2026-10-28 09:27:38 | [INFO   ] | OK : test_delivery.TestPackageTypeSurcharge.test_fragile_adds_300
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_delivery.TestPackageTypeSurcharge.test_regular_no_surcharge
+2026-10-28 09:27:38 | [INFO   ] | OK : test_delivery.TestPackageTypeSurcharge.test_regular_no_surcharge
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_delivery.TestWeightCoefficients.test_weight_20_applies_1_5
+2026-10-28 09:27:38 | [INFO   ] | OK : test_delivery.TestWeightCoefficients.test_weight_20_applies_1_5
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_delivery.TestWeightCoefficients.test_weight_50_applies_1_5
+2026-10-28 09:27:38 | [INFO   ] | OK : test_delivery.TestWeightCoefficients.test_weight_50_applies_1_5
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_delivery.TestWeightCoefficients.test_weight_above_5_applies_1_2
+2026-10-28 09:27:38 | [INFO   ] | OK : test_delivery.TestWeightCoefficients.test_weight_above_5_applies_1_2
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_delivery.TestWeightCoefficients.test_weight_equal_5_applies_1_2_or_not
+2026-10-28 09:27:38 | [ERROR  ] | FAIL : test_delivery.TestWeightCoefficients.test_weight_equal_5_applies_1_2_or_not
+2026-10-28 09:27:38 | [ERROR  ] | Traceback (most recent call last):
+  File "C:\Users\maksimovskayate\PycharmProjects\PTPM-VKI\tests\test_delivery.py", line 45, in test_weight_equal_5_applies_1_2_or_not
+    self.assertEqual(cost, 840)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^
+AssertionError: 700 != 840
+
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_lab_1.TestClassifyTriangle.test_classify_handles_float_with_precision
+2026-10-28 09:27:38 | [INFO   ] | OK : test_lab_1.TestClassifyTriangle.test_classify_handles_float_with_precision
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_lab_1.TestClassifyTriangle.test_classify_returns_equilateral_for_equal_sides
+2026-10-28 09:27:38 | [INFO   ] | OK : test_lab_1.TestClassifyTriangle.test_classify_returns_equilateral_for_equal_sides
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_lab_1.TestClassifyTriangle.test_classify_returns_isosceles_for_two_equal_sides
+2026-10-28 09:27:38 | [INFO   ] | OK : test_lab_1.TestClassifyTriangle.test_classify_returns_isosceles_for_two_equal_sides
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_lab_1.TestClassifyTriangle.test_classify_returns_not_triangle_for_inequality_violation
+2026-10-28 09:27:38 | [INFO   ] | OK : test_lab_1.TestClassifyTriangle.test_classify_returns_not_triangle_for_inequality_violation
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_lab_1.TestClassifyTriangle.test_classify_returns_scalene_for_three_different_sides
+2026-10-28 09:27:38 | [INFO   ] | OK : test_lab_1.TestClassifyTriangle.test_classify_returns_scalene_for_three_different_sides
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_lab_1.TestComputeVertices.test_compute_vertices_differ_for_different_shapes
+2026-10-28 09:27:38 | [INFO   ] | OK : test_lab_1.TestComputeVertices.test_compute_vertices_differ_for_different_shapes
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_lab_1.TestComputeVertices.test_compute_vertices_points_within_field_bouns
+2026-10-28 09:27:38 | [INFO   ] | OK : test_lab_1.TestComputeVertices.test_compute_vertices_points_within_field_bouns
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_lab_1.TestComputeVertices.test_compute_vertices_returns_integer_tuples
+2026-10-28 09:27:38 | [INFO   ] | OK : test_lab_1.TestComputeVertices.test_compute_vertices_returns_integer_tuples
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_lab_1.TestComputeVertices.test_compute_vertices_returns_three_points
+2026-10-28 09:27:38 | [INFO   ] | OK : test_lab_1.TestComputeVertices.test_compute_vertices_returns_three_points
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_lab_1.TestIsTriangle.test_is_triangle_returns_false_for_degenerate_line
+2026-10-28 09:27:38 | [INFO   ] | OK : test_lab_1.TestIsTriangle.test_is_triangle_returns_false_for_degenerate_line
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_lab_1.TestIsTriangle.test_is_triangle_returns_true_for_classic_345
+2026-10-28 09:27:38 | [INFO   ] | OK : test_lab_1.TestIsTriangle.test_is_triangle_returns_true_for_classic_345
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_lab_1.TestIsTriangle.test_is_triangle_returns_true_for_long_side
+2026-10-28 09:27:38 | [ERROR  ] | FAIL : test_lab_1.TestIsTriangle.test_is_triangle_returns_true_for_long_side
+2026-10-28 09:27:38 | [ERROR  ] | Traceback (most recent call last):
+  File "C:\Users\maksimovskayate\PycharmProjects\PTPM-VKI\tests\test_lab_1.py", line 53, in test_is_triangle_returns_true_for_long_side
+    self.assertTrue(is_triangle(3, 3, 7))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_lab_1.TestIsTriangle.test_is_triangle_returns_true_for_tiny_sides
+2026-10-28 09:27:38 | [INFO   ] | OK : test_lab_1.TestIsTriangle.test_is_triangle_returns_true_for_tiny_sides
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_lab_1.TestParseSides.test_parse_sides_raises_valueerror_for_negative_side
+2026-10-28 09:27:38 | [WARNING] | Обнаружены неположительные стороны.
+2026-10-28 09:27:38 | [ERROR  ] | FAIL : test_lab_1.TestParseSides.test_parse_sides_raises_valueerror_for_negative_side
+2026-10-28 09:27:38 | [ERROR  ] | Traceback (most recent call last):
+  File "C:\Users\maksimovskayate\PycharmProjects\PTPM-VKI\tests\test_lab_1.py", line 45, in test_parse_sides_raises_valueerror_for_negative_side
+    self.assertEqual(str(ctx.exception), "non-positive input")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'non-positive sides' != 'non-positive input'
+- non-positive sides
+?              - ^^^
++ non-positive input
+?               ^^^^
+
+
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_lab_1.TestParseSides.test_parse_sides_raises_valueerror_for_non_numeric
+2026-10-28 09:27:38 | [ERROR  ] | Не удалось преобразовать входные данные во float.
+2026-10-28 09:27:38 | [ERROR  ] | Трассировка ошибки парсинга: 
+Traceback (most recent call last):
+  File "C:\Users\maksimovskayate\PycharmProjects\PTPM-VKI\scr\lab_1.py", line 33, in parse_sides
+    a = float(raw_a)
+ValueError: could not convert string to float: 'abs'
+2026-10-28 09:27:38 | [INFO   ] | OK : test_lab_1.TestParseSides.test_parse_sides_raises_valueerror_for_non_numeric
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_lab_1.TestParseSides.test_parse_sides_raises_valueerror_for_zero_side
+2026-10-28 09:27:38 | [WARNING] | Обнаружены неположительные стороны.
+2026-10-28 09:27:38 | [ERROR  ] | FAIL : test_lab_1.TestParseSides.test_parse_sides_raises_valueerror_for_zero_side
+2026-10-28 09:27:38 | [ERROR  ] | Traceback (most recent call last):
+  File "C:\Users\maksimovskayate\PycharmProjects\PTPM-VKI\tests\test_lab_1.py", line 40, in test_parse_sides_raises_valueerror_for_zero_side
+    self.assertEqual(str(ctx.exception), "non-positive input")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'non-positive sides' != 'non-positive input'
+- non-positive sides
+?              - ^^^
++ non-positive input
+?               ^^^^
+
+
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_lab_1.TestParseSides.test_parse_sides_returns_floats_for_valid_input
+2026-10-28 09:27:38 | [INFO   ] | OK : test_lab_1.TestParseSides.test_parse_sides_returns_floats_for_valid_input
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_lab_1.TestParseSides.test_sides_accepts_float_string
+2026-10-28 09:27:38 | [ERROR  ] | ERROR : test_lab_1.TestParseSides.test_sides_accepts_float_string
+2026-10-28 09:27:38 | [ERROR  ] | Traceback (most recent call last):
+  File "C:\Users\maksimovskayate\PycharmProjects\PTPM-VKI\tests\test_lab_1.py", line 28, in test_sides_accepts_float_string
+    self.assertIsInstance(a, 2.5)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Program Files\Python313\Lib\unittest\case.py", line 1314, in assertIsInstance
+    if not isinstance(obj, cls):
+           ~~~~~~~~~~^^^^^^^^^^
+TypeError: isinstance() arg 2 must be a type, a tuple of types, or a union
+
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_lab_1.TestProcessRequest.test_process_request_returns_empty_for_non_numeric
+2026-10-28 09:27:38 | [INFO   ] | Запрос A='abc', B='4', C='5'
+2026-10-28 09:27:38 | [ERROR  ] | Не удалось преобразовать входные данные во float.
+2026-10-28 09:27:38 | [ERROR  ] | Трассировка ошибки парсинга: 
+Traceback (most recent call last):
+  File "C:\Users\maksimovskayate\PycharmProjects\PTPM-VKI\scr\lab_1.py", line 33, in parse_sides
+    a = float(raw_a)
+ValueError: could not convert string to float: 'abc'
+2026-10-28 09:27:38 | [ERROR  ] | Нечисловые данные
+2026-10-28 09:27:38 | [INFO   ] | OK : test_lab_1.TestProcessRequest.test_process_request_returns_empty_for_non_numeric
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_lab_1.TestProcessRequest.test_process_request_returns_equilateral
+2026-10-28 09:27:38 | [INFO   ] | Запрос A='2', B='2', C='2'
+2026-10-28 09:27:38 | [DEBUG  ] | Вид треугольника: равносторонний
+2026-10-28 09:27:38 | [INFO   ] | OK : test_lab_1.TestProcessRequest.test_process_request_returns_equilateral
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_lab_1.TestProcessRequest.test_process_request_returns_isosceles
+2026-10-28 09:27:38 | [INFO   ] | Запрос A='3', B='3', C='4'
+2026-10-28 09:27:38 | [DEBUG  ] | Вид треугольника: равнобедренный
+2026-10-28 09:27:38 | [INFO   ] | OK : test_lab_1.TestProcessRequest.test_process_request_returns_isosceles
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_lab_1.TestProcessRequest.test_process_request_returns_minus_one_for_negative_side
+2026-10-28 09:27:38 | [INFO   ] | Запрос A='-1', B='4', C='5'
+2026-10-28 09:27:38 | [WARNING] | Обнаружены неположительные стороны.
+2026-10-28 09:27:38 | [ERROR  ] | Ошибочные числовые данные (не положительные)
+2026-10-28 09:27:38 | [INFO   ] | OK : test_lab_1.TestProcessRequest.test_process_request_returns_minus_one_for_negative_side
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_lab_1.TestProcessRequest.test_process_request_returns_minus_one_for_zero_side
+2026-10-28 09:27:38 | [INFO   ] | Запрос A='0', B='4', C='5'
+2026-10-28 09:27:38 | [WARNING] | Обнаружены неположительные стороны.
+2026-10-28 09:27:38 | [ERROR  ] | Ошибочные числовые данные (не положительные)
+2026-10-28 09:27:38 | [INFO   ] | OK : test_lab_1.TestProcessRequest.test_process_request_returns_minus_one_for_zero_side
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_lab_1.TestProcessRequest.test_process_request_returns_minus_two_for_non_numeric
+2026-10-28 09:27:38 | [INFO   ] | Запрос A='3', B='hello', C='5'
+2026-10-28 09:27:38 | [ERROR  ] | Не удалось преобразовать входные данные во float.
+2026-10-28 09:27:38 | [ERROR  ] | Трассировка ошибки парсинга: 
+Traceback (most recent call last):
+  File "C:\Users\maksimovskayate\PycharmProjects\PTPM-VKI\scr\lab_1.py", line 34, in parse_sides
+    b = float(raw_b)
+ValueError: could not convert string to float: 'hello'
+2026-10-28 09:27:38 | [ERROR  ] | Нечисловые данные
+2026-10-28 09:27:38 | [INFO   ] | OK : test_lab_1.TestProcessRequest.test_process_request_returns_minus_two_for_non_numeric
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_lab_1.TestProcessRequest.test_process_request_returns_not_triangle_not_triangle_for_bad_inequality
+2026-10-28 09:27:38 | [INFO   ] | Запрос A='1', B='2', C='10'
+2026-10-28 09:27:38 | [DEBUG  ] | Вид треугольника: не треугольник
+2026-10-28 09:27:38 | [WARNING] | Стороны не образуются
+2026-10-28 09:27:38 | [INFO   ] | OK : test_lab_1.TestProcessRequest.test_process_request_returns_not_triangle_not_triangle_for_bad_inequality
+2026-10-28 09:27:38 | [INFO   ] | СТАРТ : test_lab_1.TestProcessRequest.test_process_request_returns_scalene_with_vertices
+2026-10-28 09:27:38 | [INFO   ] | Запрос A='3', B='4', C='5'
+2026-10-28 09:27:38 | [DEBUG  ] | Вид треугольника: разносторонний
+2026-10-28 09:27:38 | [INFO   ] | OK : test_lab_1.TestProcessRequest.test_process_request_returns_scalene_with_vertices
+2026-10-28 09:27:38 | [INFO   ] | ======================================================================
+2026-10-28 09:27:38 | [INFO   ] | ИТОГОВАЯ СТАТИСТИКА
+2026-10-28 09:27:38 | [INFO   ] | ======================================================================
+2026-10-28 09:27:38 | [INFO   ] | Всего тестов: 51
+2026-10-28 09:27:38 | [INFO   ] | Прошло успешно: 44
+2026-10-28 09:27:38 | [INFO   ] | Упало (assert): 6
+2026-10-28 09:27:38 | [INFO   ] | Завершилось ошибкой: 1
+2026-10-28 09:27:38 | [INFO   ] | Пропущено: 0
+2026-10-28 09:27:38 | [ERROR  ] | ----------------------------------------------------------------------
+2026-10-28 09:27:38 | [ERROR  ] | СПИСОК УПАВШИХ ТЕСТОВ (для пункта В отчёта):
+2026-10-28 09:27:38 | [ERROR  ] | ----------------------------------------------------------------------
+2026-10-28 09:27:38 | [ERROR  ] |  • test_delivery.TestExpressDelivery.test_express_costs_more_than_regular
+2026-10-28 09:27:38 | [ERROR  ] |      self.assertGreater(express_cost, regular_cost)
+2026-10-28 09:27:38 | [ERROR  ] |      ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-10-28 09:27:38 | [ERROR  ] |  AssertionError: 350 not greater than 700
+2026-10-28 09:27:38 | [ERROR  ] |  • test_delivery.TestExpressDelivery.test_express_never_delivers_same_day
+2026-10-28 09:27:38 | [ERROR  ] |      self.assertNotEqual(express_date, "2026-09-03")
+2026-10-28 09:27:38 | [ERROR  ] |      ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-10-28 09:27:38 | [ERROR  ] |  AssertionError: '2026-09-03' == '2026-09-03'
+2026-10-28 09:27:38 | [ERROR  ] |  • test_delivery.TestWeightCoefficients.test_weight_equal_5_applies_1_2_or_not
+2026-10-28 09:27:38 | [ERROR  ] |      self.assertEqual(cost, 840)
+2026-10-28 09:27:38 | [ERROR  ] |      ~~~~~~~~~~~~~~~~^^^^^^^^^^^
+2026-10-28 09:27:38 | [ERROR  ] |  AssertionError: 700 != 840
+2026-10-28 09:27:38 | [ERROR  ] |  • test_lab_1.TestIsTriangle.test_is_triangle_returns_true_for_long_side
+2026-10-28 09:27:38 | [ERROR  ] |      self.assertTrue(is_triangle(3, 3, 7))
+2026-10-28 09:27:38 | [ERROR  ] |      ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+2026-10-28 09:27:38 | [ERROR  ] |  AssertionError: False is not true
+2026-10-28 09:27:38 | [ERROR  ] |  • test_lab_1.TestParseSides.test_parse_sides_raises_valueerror_for_negative_side
+2026-10-28 09:27:38 | [ERROR  ] |  ?              - ^^^
+2026-10-28 09:27:38 | [ERROR  ] |  + non-positive input
+2026-10-28 09:27:38 | [ERROR  ] |  ?               ^^^^
+2026-10-28 09:27:38 | [ERROR  ] |  • test_lab_1.TestParseSides.test_parse_sides_raises_valueerror_for_zero_side
+2026-10-28 09:27:38 | [ERROR  ] |  ?              - ^^^
+2026-10-28 09:27:38 | [ERROR  ] |  + non-positive input
+2026-10-28 09:27:38 | [ERROR  ] |  ?               ^^^^
+2026-10-28 09:27:38 | [ERROR  ] | ----------------------------------------------------------------------
+2026-10-28 09:27:38 | [ERROR  ] | СПИСОК ТЕСТОВ С ОШИБКАМИ (исключения в коде):
+2026-10-28 09:27:38 | [ERROR  ] | ----------------------------------------------------------------------
+2026-10-28 09:27:38 | [ERROR  ] |  • test_lab_1.TestParseSides.test_sides_accepts_float_string
+2026-10-28 09:27:38 | [INFO   ] | ======================================================================
+2026-10-28 09:27:38 | [INFO   ] | ТЕСТИРОВАНИЕ ЗАВЕРШЕНО
+2026-10-28 09:27:38 | [INFO   ] | ======================================================================

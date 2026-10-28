@@ -5,12 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8bd22081-b68e-4dc3-a999-0db95e9f6a50" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/scr/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Delivery.py" beforeDir="false" afterPath="$PROJECT_DIR$/scr/Delivery.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scr/lab_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/scr/lab_1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_delivery.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_delivery.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_lab_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_lab_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +20,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -105,5 +105,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="fffffff" />
+    <option name="LAST_COMMIT_MESSAGE" value="fffffff" />
   </component>
 </project>
