@@ -1,0 +1,212 @@
+Index: run_tests.py
+===================================================================
+diff --git a/run_tests.py b/run_tests.py
+--- a/run_tests.py	(revision 82b54bd62fd0b5fe37fe507bd1541657ce8df111)
++++ b/run_tests.py	(date 1792552173419)
+@@ -1,0 +1,101 @@
++import logging
++import os
++import sys
++import unittest
++
++LOG_DIR = "logs"
++os.makedirs(LOG_DIR, exist_ok=True)
++
++log_format = "%(asctime)s | [%(levelname)-7s] | %(message)s"
++date_format = "%Y-%m-%d %H:%M:%S"
++
++logging.basicConfig(
++    level=logging.DEBUG,
++    format=log_format,
++    datefmt=date_format,
++    handlers=[
++        logging.StreamHandler(sys.stdout),
++        logging.FileHandler(os.path.join(LOG_DIR, "test_report.log"), encoding="utf-8"),
++    ],
++)
++
++logging.info("Логгер успешно сконфигурирован")
++logging.info("Приложение запущено")
++
++class LoggingTestResult(unittest.TextTestResult):
++
++    def startTest(self, test):
++        super().startTest(test)
++        logging.info(f"СТАРТ : {test.id()}")
++
++    def addSuccess(self, test):
++        super().addSuccess(test)
++        logging.info(f"OK : {test.id()}")
++
++    def addFailure(self, test, err):
++        super().addFailure(test, err)
++        logging.error(f"FAIL : {test.id()}")
++        logging.error(self._exc_info_to_string(err, test))
++
++    def addError(self, test, err):
++        super().addError(test, err)
++        logging.error(f"ERROR : {test.id()}")
++        logging.error(self._exc_info_to_string(err, test))
++
++    def addSkip(self, test, reason):
++        super().addSkip(test, reason)
++        logging.warning(f"SKIP : {test.id()} — {reason}")
++
++
++class LoggingTestRunner(unittest.TextTestRunner):
++    resultclass = LoggingTestResult
++
++def Main():
++    logging.info("=" * 70)
++    logging.info("ЗАПУСК ТЕСТОВ")
++    logging.info("=" * 70)
++
++    loader = unittest.TestLoader()
++    suite = loader.discover(start_dir="tests", pattern="test_*.py")
++
++    runner = LoggingTestRunner(verbosity=2)
++    result = runner.run(suite)
++
++    total = result.testsRun
++    failed = len(result.failures)
++    errored = len(result.errors)
++    skipped = len(result.skipped)
++    passed = total - failed - errored - skipped
++
++    logging.info("=" * 70)
++    logging.info("ИТОГОВАЯ СТАТИСТИКА")
++    logging.info("=" * 70)
++    logging.info(f"Всего тестов: {total}")
++    logging.info(f"Прошло успешно: {passed}")
++    logging.info(f"Упало (assert): {failed}")
++    logging.info(f"Завершилось ошибкой: {errored}")
++    logging.info(f"Пропущено: {skipped}")
++
++    if result.failures:
++        logging.error("-" * 70)
++        logging.error("СПИСОК УПАВШИХ ТЕСТОВ (для пункта В отчёта):")
++        logging.error("-" * 70)
++        for test, traceback_text in result.failures:
++            logging.error(f" • {test.id()}")
++            for line in traceback_text.strip().split("\n")[-3:]:
++                logging.error(f" {line}")
++
++    if result.errors:
++        logging.error("-" * 70)
++        logging.error("СПИСОК ТЕСТОВ С ОШИБКАМИ (исключения в коде):")
++        logging.error("-" * 70)
++        for test, _ in result.errors:
++            logging.error(f" • {test.id()}")
++
++    logging.info("=" * 70)
++    logging.info("ТЕСТИРОВАНИЕ ЗАВЕРШЕНО")
++    logging.info("=" * 70)
++
++
++if __name__ == "__main__":
++    Main()
+\ No newline at end of file
+Index: scr/lab_1.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import logging\r\nimport sys\r\nimport math\r\nimport os\r\nfrom datetime import datetime\r\n\r\nLOG_DIR = \"logs\"\r\nos.makedirs(LOG_DIR, exist_ok=True)\r\n\r\nlog_format = \"%(asctime)s | [%(levelname)-7s] | %(message)s\"\r\ndate_format = \"%Y-%m-%d %H:%M:%S\"\r\n\r\nlogging.basicConfig(\r\n    level=logging.DEBUG,\r\n    format=log_format,\r\n    datefmt=date_format,\r\n    handlers=[\r\n        logging.StreamHandler(sys.stdout),\r\n        #logging.FileHandler(os.path.join(LOG_DIR, \"logs/file_txt.log\"), encoding=\"utf-8\")\r\n        logging.FileHandler(\"logs/file_txt.log\", encoding=\"utf-8\")\r\n    ]\r\n)\r\n\r\nlogging.info(\"Логгер успешно сконфигурирован\")\r\nlogging.info(\"Приложение запущено\")\r\n\r\nEPS = 1e-9\r\nFIELD_SIZE = 100\r\nMARGIN = 10\r\n\r\ndef parse_sides(raw_a: str, raw_b: str, raw_c: str):\r\n    try:\r\n        a = float(raw_a)\r\n        b = float(raw_b)\r\n        c = float(raw_c)\r\n    except (TypeError, ValueError) as ex:\r\n        logging.error(\"Не удалось преобразовать входные данные во float.\")\r\n        logging.exception(\"Трассировка ошибки парсинга: \")\r\n        raise ValueError(\"non-numeric input\") from ex\r\n\r\n    if a<=0 or b<=0 or c<=0:\r\n        logging.warning(f\"Обнаружены неположительные стороны.\")\r\n        raise ValueError(\"non-positive sides\")\r\n    return a, b, c\r\n\r\ndef is_triangle(a: float, b: float, c: float) -> bool:\r\n    return (a + b > c + EPS) and (a + c > b + EPS) and (b + c > a + EPS)\r\n\r\ndef classify_triangle(a: float, b: float, c: float) -> str:\r\n    if not is_triangle(a, b, c):\r\n        return \"не треугольник\"\r\n\r\n    def eq(x, y):\r\n        return abs(x - y) < EPS\r\n\r\n    if eq(a, b) and eq(b, c):\r\n        return \"равносторонний\"\r\n    if eq(a, b) or eq(b, c) or eq(a, c):\r\n        return \"равнобедренный\"\r\n    return \"разносторонний\"\r\n\r\ndef compute_vertices(a: float, b: float, c: float):\r\n    usable = FIELD_SIZE - 2 * MARGIN\r\n    max_side = max(a, b, c)\r\n    scale = usable / max_side if max_side > 0 else 1.0\r\n\r\n    ax = MARGIN\r\n    ay = FIELD_SIZE - MARGIN\r\n\r\n    bx = ax + a * scale\r\n    by = ay\r\n\r\n    cos_a = (a * a + c * c - b * b) / (2 * a * c)\r\n    cos_a = max(-1.0, min(1.0, cos_a))\r\n    sin_a = math.sqrt(max(0.0, 1.0 - cos_a * cos_a))\r\n\r\n    cx = ax + c * scale * cos_a\r\n    cy = ay - c * scale * sin_a\r\n\r\n    def clamp(v):\r\n        return int(round(max(0, min(FIELD_SIZE, v))))\r\n\r\n    return ([clamp(ax), clamp(ay)],\r\n            [clamp(bx), clamp(by)],\r\n            [clamp(cx), clamp(cy)])\r\n\r\ndef process_request(raw_a: str, raw_b: str, raw_c: str):\r\n    logging.info(f\"Запрос A='{raw_a}', B='{raw_b}', C='{raw_c}'\")\r\n    #тут нечисловые данные\r\n    try:\r\n        a, b, c = parse_sides(raw_a, raw_b, raw_c)\r\n    except ValueError as ex:\r\n        if str(ex) == \"non-numeric input\":\r\n            logging.error(\"Нечисловые данные\")\r\n            return \"\", [(-2, -2), (-2, -2), (-2, -2)]\r\n        else:\r\n            logging.error(\"Ошибочные числовые данные (не положительные)\")\r\n            return \"не треугольник\", [(-1, -1), (-1, -1), (-1, -1)]\r\n    #классификация\r\n    try:\r\n        kind = classify_triangle(a, b, c)\r\n        logging.debug(f\"Вид треугольника: {kind}\")\r\n    except Exception:\r\n        logging.exception(\"Ошибка при классификации треугольника:\")\r\n        return \"не треугольник\", [(-1, -1), (-1, -1), (-1, -1)]\r\n\r\n    # если не треугольник - вернуть (-1, -1)\r\n    if kind == \"не треугольник\":\r\n        logging.warning(\"Стороны не образуются\")\r\n        return kind, [(-1, -1), (-1, -1), (-1, -1)]\r\n\r\n    #координаты\r\n    try:\r\n        vertices = compute_vertices(a, b, c)\r\n    except Exception:\r\n        logging.exception(\"Ошибка при расчете координат:\")\r\n        return kind\r\n    return kind, vertices\r\n\r\n\r\ndef Main():\r\n    logging.info(\"Старт обработки запроса\")\r\n    try:\r\n        raw_a = input(\"Введите сторону А: \").strip()\r\n        raw_b = input(\"Введите сторону B: \").strip()\r\n        raw_c = input(\"Введите сторону C: \").strip()\r\n    except Exception:\r\n        logging.exception(\"Ошибка чтения входных данных\")\r\n        return\r\n\r\n    try:\r\n        kind, vertices = process_request(raw_a, raw_b, raw_c)\r\n        print(f\"\\nВид треугольника: {kind}\")\r\n        print(f\"\\nКоординаты вершин {vertices}\")\r\n    except Exception:\r\n        logging.critical(\"Критическая ошибка обработки запроса\", exc_info=True)\r\n        print(\"Критическая ошибка\")\r\n    finally:\r\n        logging.info(\"Завершение обработки\")\r\n\r\nif __name__ == \"__main__\":\r\n    Main()
+===================================================================
+diff --git a/scr/lab_1.py b/scr/lab_1.py
+--- a/scr/lab_1.py	(revision 82b54bd62fd0b5fe37fe507bd1541657ce8df111)
++++ b/scr/lab_1.py	(date 1792553129476)
+@@ -16,7 +16,6 @@
+     datefmt=date_format,
+     handlers=[
+         logging.StreamHandler(sys.stdout),
+-        #logging.FileHandler(os.path.join(LOG_DIR, "logs/file_txt.log"), encoding="utf-8")
+         logging.FileHandler("logs/file_txt.log", encoding="utf-8")
+     ]
+ )
+Index: scr/Delivery.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import datetime\r\n\r\n\r\ndef calculate_delivery_cost(weight: float, distance: int, package_type: str, is_express: bool = False) -> tuple:\r\n    \"\"\"\r\n    Расчет стоимости и параметров доставки посылки.\r\n    Возвращает: (стоимость_в_рублях, дата_доставки)\r\n    В случае критических ошибок или неверных параметров возвращает (-1, \"0000-00-00\").\r\n    \"\"\"\r\n\r\n    # TODO: Проверить физические ограничения на вес и дистанцию (границы до 50кг и 5000км)\r\n    if weight < 0.1 or weight > 50.0 or distance < 1 or distance > 5000:\r\n        return -1, \"0000-00-00\"\r\n\r\n    valid_types = [\"обычный\", \"хрупкий\", \"опасный\"]\r\n    if package_type not in valid_types:\r\n        return -1, \"0000-00-00\"\r\n\r\n    # Базовые тарифные сетки\r\n    base_cost = 200\r\n    distance_cost = distance * 5\r\n    total_cost = base_cost + distance_cost\r\n\r\n    # Рассчитываем весовые коэффициенты\r\n    if weight > 5.0 and weight < 20.0:\r\n        total_cost *= 1.2\r\n    elif weight >= 20.0:\r\n        total_cost *= 1.5\r\n\r\n    if package_type == \"хрупкий\":\r\n        total_cost += 300\r\n    elif package_type == \"опасный\":\r\n        total_cost += 1000\r\n\r\n    if is_express:\r\n        total_cost *= 0.5\r\n\r\n    # Логика расчета времени транспортировки\r\n    current_date = datetime.date(2026, 9, 3)  # Фиксированная дата отправки\r\n\r\n    days_needed = max(1, distance // 500)\r\n\r\n    if is_express:\r\n        days_needed = days_needed // 2\r\n\r\n    delivery_date = current_date + datetime.timedelta(days=days_needed)\r\n\r\n    return int(total_cost), delivery_date.strftime(\"%Y-%m-%d\")\r\n
+===================================================================
+diff --git a/scr/Delivery.py b/scr/Delivery.py
+--- a/scr/Delivery.py	(revision 82b54bd62fd0b5fe37fe507bd1541657ce8df111)
++++ b/scr/Delivery.py	(date 1792552121905)
+@@ -9,7 +9,7 @@
+     """
+ 
+     # TODO: Проверить физические ограничения на вес и дистанцию (границы до 50кг и 5000км)
+-    if weight < 0.1 or weight > 50.0 or distance < 1 or distance > 5000:
++    if weight < 0.1 or weight > 50.0 or distance < 1 or distance > 5000: # должно ли быть "="?
+         return -1, "0000-00-00"
+ 
+     valid_types = ["обычный", "хрупкий", "опасный"]
+@@ -22,7 +22,7 @@
+     total_cost = base_cost + distance_cost
+ 
+     # Рассчитываем весовые коэффициенты
+-    if weight > 5.0 and weight < 20.0:
++    if weight > 5.0 and weight < 20.0: #должно ли быть "="?
+         total_cost *= 1.2
+     elif weight >= 20.0:
+         total_cost *= 1.5
+@@ -33,7 +33,7 @@
+         total_cost += 1000
+ 
+     if is_express:
+-        total_cost *= 0.5
++        total_cost *= 0.5 #почему экспресс доставка дешевле, когда должна быть дороже?
+ 
+     # Логика расчета времени транспортировки
+     current_date = datetime.date(2026, 9, 3)  # Фиксированная дата отправки
+@@ -41,7 +41,7 @@
+     days_needed = max(1, distance // 500)
+ 
+     if is_express:
+-        days_needed = days_needed // 2
++        days_needed = days_needed // 2 #если дистанция меньше или ровно 500, то он потратит на дорогу 0 дней
+ 
+     delivery_date = current_date + datetime.timedelta(days=days_needed)
+ 
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"8bd22081-b68e-4dc3-a999-0db95e9f6a50\" name=\"Changes\" comment=\"\">\r\n      <change afterPath=\"$PROJECT_DIR$/scr/__init__.py\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/tests/__init__.py\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/Delivery.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/scr/Delivery.py\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/scr/lab_1.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/scr/lab_1.py\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/tests/test_delivery.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/tests/test_delivery.py\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/tests/test_lab_1.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/tests/test_lab_1.py\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Python Script\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;Tasya-hash&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\">{\r\n  &quot;selectedUrlAndAccountId&quot;: {\r\n    &quot;url&quot;: &quot;https://github.com/Tasya-hash/PTPM-VKI.git&quot;,\r\n    &quot;accountId&quot;: &quot;6defc55b-2476-430c-9f96-3a8870a2212e&quot;\r\n  }\r\n}</component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 4\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"3Ji40BHtyV8NLfQ6gNFEaMF22ko\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"ModuleVcsDetector.initialDetectionPerformed\": \"true\",\r\n    \"Python tests.Python tests in test_delivery.py.executor\": \"Run\",\r\n    \"Python.main.executor\": \"Run\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252\": \"true\",\r\n    \"RunOnceActivity.git.unshallow\": \"true\",\r\n    \"git-widget-placeholder\": \"Lab__2\",\r\n    \"last_opened_file_path\": \"C:/Users/maksimovskayate/PycharmProjects/PTPM-VKI\",\r\n    \"settings.editor.selected.configurable\": \"preferences.lookFeel\"\r\n  }\r\n}]]></component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\maksimovskayate\\PycharmProjects\\PTPM-VKI\\scr\" />\r\n      <recent name=\"C:\\Users\\maksimovskayate\\PycharmProjects\\PTPM-VKI\\logs\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-python-sdk-1f77c24022e5-d902c0275401-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-252.26830.99\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"8bd22081-b68e-4dc3-a999-0db95e9f6a50\" name=\"Changes\" comment=\"\" />\r\n      <created>1790130329528</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1790130329528</updated>\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State>\r\n              <option name=\"FILTERS\">\r\n                <map>\r\n                  <entry key=\"branch\">\r\n                    <value>\r\n                      <list>\r\n                        <option value=\"origin/Lab_2\" />\r\n                      </list>\r\n                    </value>\r\n                  </entry>\r\n                </map>\r\n              </option>\r\n            </State>\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n</project>
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 82b54bd62fd0b5fe37fe507bd1541657ce8df111)
++++ b/.idea/workspace.xml	(date 1792553129806)
+@@ -4,13 +4,11 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="8bd22081-b68e-4dc3-a999-0db95e9f6a50" name="Changes" comment="">
+-      <change afterPath="$PROJECT_DIR$/scr/__init__.py" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/tests/__init__.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Delivery.py" beforeDir="false" afterPath="$PROJECT_DIR$/scr/Delivery.py" afterDir="false" />
++    <list default="true" id="8bd22081-b68e-4dc3-a999-0db95e9f6a50" name="Changes" comment=":)">
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/run_tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/run_tests.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/scr/Delivery.py" beforeDir="false" afterPath="$PROJECT_DIR$/scr/Delivery.py" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/scr/lab_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/scr/lab_1.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/tests/test_delivery.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_delivery.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/tests/test_lab_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_lab_1.py" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -52,6 +50,7 @@
+     "ModuleVcsDetector.initialDetectionPerformed": "true",
+     "Python tests.Python tests in test_delivery.py.executor": "Run",
+     "Python.main.executor": "Run",
++    "Python.run_tests.executor": "Run",
+     "RunOnceActivity.ShowReadmeOnStart": "true",
+     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+     "RunOnceActivity.git.unshallow": "true",
+@@ -106,4 +105,8 @@
+       </map>
+     </option>
+   </component>
++  <component name="VcsManagerConfiguration">
++    <MESSAGE value=":)" />
++    <option name="LAST_COMMIT_MESSAGE" value=":)" />
++  </component>
+ </project>
+\ No newline at end of file
